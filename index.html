@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>מרכז מדריכים - מעסיקים, עובדים, אוטומציות, פניות ודוחות</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&family=Frank+Ruhl+Libre:wght@500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f3f6fb;
+      --surface: #ffffff;
+      --surface-soft: #f8fbff;
+      --text: #162133;
+      --text-muted: #5a6980;
+      --accent: #0d6efd;
+      --accent-2: #2747a6;
+      --accent-soft: rgba(13, 110, 253, 0.12);
+      --success: #198754;
+      --success-soft: rgba(25, 135, 84, 0.14);
+      --border: #dce5f3;
+      --radius: 16px;
+      --shadow-sm: 0 8px 22px rgba(22, 33, 51, 0.08);
+      --shadow-lg: 0 18px 52px rgba(22, 33, 51, 0.14);
+      --container: min(1140px, calc(100% - 2rem));
+      --step-size: 2.6rem;
+      --duration: 0.55s;
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Assistant", "Segoe UI", Tahoma, sans-serif;
+      font-size: 1.05rem;
+      line-height: 1.72;
+      background: radial-gradient(circle at 15% 0%, #ebf4ff 0%, #f6f9fe 32%, var(--bg) 60%);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    .hero {
+      width: var(--container);
+      margin: 1rem auto 0;
+      padding: clamp(2rem, 4.2vw, 3.25rem) clamp(1rem, 4vw, 2.8rem);
+      border-radius: calc(var(--radius) + 6px);
+      background: linear-gradient(130deg, #0f172a 0%, #1f3e74 42%, #2a4ea0 82%, #173568 100%);
+      position: relative;
+      overflow: hidden;
+      color: #f8fbff;
+      box-shadow: var(--shadow-lg);
+      isolation: isolate;
+      animation: fadeDown 0.7s var(--ease-out) both;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      width: 380px;
+      height: 380px;
+      background: radial-gradient(circle, rgba(99, 179, 255, 0.3), transparent 70%);
+      top: -180px;
+      left: -140px;
+      animation: floatGlow 10s ease-in-out infinite alternate;
+    }
+
+    .hero::after {
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(30, 144, 255, 0.22), transparent 70%);
+      bottom: -170px;
+      right: -100px;
+      animation: floatGlow 12s ease-in-out infinite alternate-reverse;
+    }
+
+    .hero h1 {
+      margin: 0 0 0.9rem;
+      font-size: clamp(1.7rem, 3.6vw, 2.5rem);
+      line-height: 1.22;
+      letter-spacing: -0.02em;
+      font-family: "Frank Ruhl Libre", "Assistant", serif;
+      font-weight: 700;
+    }
+
+    .hero p {
+      margin: 0;
+      font-size: clamp(1rem, 2.3vw, 1.16rem);
+      color: #d9e9ff;
+      max-width: 64ch;
+    }
+
+    .hero-logo {
+      position: absolute;
+      top: 0.9rem;
+      left: 1rem;
+      width: clamp(68px, 8vw, 110px);
+      border-radius: 12px;
+      padding: 0.28rem;
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 10px 28px rgba(9, 18, 35, 0.28);
+      backdrop-filter: blur(4px);
+      z-index: 2;
+    }
+
+    .hero-logo img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 9px;
+    }
+
+    .tabs-shell {
+      width: var(--container);
+      margin: 1rem auto 0;
+      position: sticky;
+      top: 0.45rem;
+      z-index: 20;
+      backdrop-filter: blur(8px);
+      animation: fadeUp 0.7s var(--ease-out) 0.12s both;
+    }
+
+    .tabs-nav {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 0.55rem;
+      padding: 0.6rem;
+      border-radius: 14px;
+      border: 1px solid rgba(220, 229, 243, 0.9);
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .tab-btn {
+      border: 0;
+      border-radius: 10px;
+      padding: 0.8rem 1rem;
+      font: inherit;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: transparent;
+      cursor: pointer;
+      transition: transform 0.25s var(--ease-out), background 0.25s var(--ease-out), color 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
+    }
+
+    .tab-btn:hover {
+      color: var(--accent);
+      background: #eef5ff;
+      transform: translateY(-1px);
+    }
+
+    .tab-btn[aria-selected="true"] {
+      color: #ffffff;
+      background: linear-gradient(120deg, var(--accent), var(--accent-2));
+      box-shadow: 0 8px 18px rgba(13, 110, 253, 0.32);
+      transform: translateY(-1px);
+    }
+
+    .tab-content-wrap {
+      width: var(--container);
+      margin: 1.1rem auto 0;
+    }
+
+    .tab-panel {
+      display: none;
+      animation: panelIn 0.45s var(--ease-out) both;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    .toc-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      padding: 1rem 1.1rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .toc-card h2 {
+      margin: 0 0 0.75rem;
+      color: var(--text-muted);
+      font-size: 0.84rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 800;
+    }
+
+    .toc-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 0.48rem;
+    }
+
+    .toc-link {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      text-decoration: none;
+      color: var(--text);
+      border-radius: 10px;
+      padding: 0.62rem 0.78rem;
+      transition: transform 0.22s var(--ease-out), background 0.22s var(--ease-out), color 0.22s var(--ease-out);
+    }
+
+    .toc-link:hover {
+      color: var(--accent);
+      background: var(--accent-soft);
+      transform: translateX(-3px);
+    }
+
+    .toc-num {
+      width: 2.15rem;
+      height: 2.15rem;
+      flex-shrink: 0;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #3c88ff, #1e4fbe);
+      color: #fff;
+      font-size: 0.88rem;
+      font-weight: 800;
+    }
+
+    .guide-main {
+      margin-top: 1.25rem;
+      display: grid;
+      gap: 1.25rem;
+    }
+
+    .step {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity var(--duration) var(--ease-out), transform var(--duration) var(--ease-out);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+
+    .step.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .step-head {
+      padding: 1rem 1rem 0.8rem;
+      border-bottom: 1px solid #edf2fa;
+      display: flex;
+      gap: 0.8rem;
+      align-items: flex-start;
+      background: linear-gradient(to bottom, #fdfefe, #f9fbff);
+    }
+
+    .step-badge {
+      width: var(--step-size);
+      height: var(--step-size);
+      border-radius: 11px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      color: var(--accent);
+      border: 2px solid var(--accent);
+      background: white;
+      font-weight: 800;
+      box-shadow: 0 4px 14px rgba(13, 110, 253, 0.15);
+    }
+
+    .step h3 {
+      margin: 0 0 0.2rem;
+      font-size: clamp(1.12rem, 2.5vw, 1.35rem);
+      line-height: 1.3;
+      font-family: "Frank Ruhl Libre", "Assistant", serif;
+    }
+
+    .step .summary {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 0.98rem;
+    }
+
+    .step-body {
+      padding: 0.95rem;
+    }
+
+    .figure-wrap {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--surface-soft);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+      transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
+    }
+
+    .figure-wrap:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .figure-wrap img {
+      width: 100%;
+      display: block;
+      height: auto;
+    }
+
+    .caption {
+      margin: 0;
+      border-top: 1px solid #ebf1fb;
+      padding: 0.86rem 0.95rem 0.95rem;
+      color: var(--text-muted);
+      background: linear-gradient(to bottom, #fcfdff, #f8fbff);
+      font-size: 0.945rem;
+    }
+
+    .callout {
+      margin-top: 0.85rem;
+      border-radius: 10px;
+      padding: 0.72rem 0.88rem;
+      font-size: 0.95rem;
+      line-height: 1.62;
+    }
+
+    .callout.info {
+      background: var(--accent-soft);
+      border: 1px solid rgba(13, 110, 253, 0.24);
+      color: #0a3f88;
+    }
+
+    .callout.success {
+      background: var(--success-soft);
+      border: 1px solid rgba(25, 135, 84, 0.28);
+      color: #0e5934;
+    }
+
+    .two-up {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.95rem;
+    }
+
+    .section-frame {
+      border: 3px solid #2d63d6;
+      box-shadow: 0 14px 30px rgba(45, 99, 214, 0.22), inset 0 0 0 2px rgba(255, 255, 255, 0.85);
+      position: relative;
+      background: linear-gradient(180deg, #fafdff 0%, #f3f8ff 100%);
+    }
+
+    .section-frame::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 2px dashed rgba(45, 99, 214, 0.45);
+      border-radius: 10px;
+      margin: 8px;
+      pointer-events: none;
+    }
+
+    footer {
+      width: var(--container);
+      margin: 1.7rem auto 2rem;
+      padding: 1rem 1rem 1.2rem;
+      color: var(--text-muted);
+      text-align: center;
+      border-top: 1px solid var(--border);
+      font-size: 0.92rem;
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes panelIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes floatGlow {
+      from { transform: translateY(0) scale(1); opacity: 0.75; }
+      to { transform: translateY(12px) scale(1.06); opacity: 1; }
+    }
+
+    @media (max-width: 900px) {
+      :root {
+        --container: min(100%, calc(100% - 1rem));
+      }
+      .hero {
+        margin-top: 0.6rem;
+      }
+      .tabs-shell {
+        top: 0.2rem;
+      }
+      .tabs-nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .hero-logo {
+        top: 0.7rem;
+        left: 0.75rem;
+      }
+    }
+
+    @media (max-width: 700px) {
+      body {
+        font-size: 1rem;
+      }
+      .tabs-nav {
+        grid-template-columns: 1fr;
+      }
+      .hero-logo {
+        width: 62px;
+      }
+      .step-head {
+        padding: 0.86rem 0.86rem 0.72rem;
+      }
+      .step-body {
+        padding: 0.82rem;
+      }
+      .two-up {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+      .step {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <a class="hero-logo" href="#" aria-label="לוגו המערכת">
+      <img src="logo.jpg" alt="לוגו נויה" loading="eager" decoding="async" />
+    </a>
+    <h1> מדריך למערכת נויה - ניהול ביטוחי עובדים זרים</h1>
+    <p>מדריך מקצועי ורספונסיבי לניהול מחזור העבודה המלא: הוספת מעסיק חדש, הוספת עובד חדש עם הצהרת בריאות דיגיטלית, לוח בקרה, אוטומציות במסה, פניות שירות מעסיקים וניהול דוחות.</p>
+  </header>
+
+  <div class="tabs-shell" role="tablist" aria-label="בחירת מדריך">
+    <nav class="tabs-nav">
+      <button class="tab-btn" role="tab" id="tab-employer" aria-controls="panel-employer" aria-selected="true" data-panel="panel-employer">הוספת מעסיק חדש</button>
+      <button class="tab-btn" role="tab" id="tab-worker" aria-controls="panel-worker" aria-selected="false" data-panel="panel-worker">הוספת עובד חדש למעסיק</button>
+      <button class="tab-btn" role="tab" id="tab-dashboard" aria-controls="panel-dashboard" aria-selected="false" data-panel="panel-dashboard">לוח הבקרה</button>
+      <button class="tab-btn" role="tab" id="tab-automation" aria-controls="panel-automation" aria-selected="false" data-panel="panel-automation">אוטומציות</button>
+      <button class="tab-btn" role="tab" id="tab-requests" aria-controls="panel-requests" aria-selected="false" data-panel="panel-requests">פניות מעסיקים</button>
+      <button class="tab-btn" role="tab" id="tab-reports" aria-controls="panel-reports" aria-selected="false" data-panel="panel-reports">דוחות</button>
+    </nav>
+  </div>
+
+  <div class="tab-content-wrap">
+    <section class="tab-panel active" id="panel-employer" role="tabpanel" aria-labelledby="tab-employer">
+  
+
+      <main class="guide-main">
+        <article class="step" id="emp-step1">
+          <header class="step-head">
+            <span class="step-badge">1</span>
+            <div>
+              <h3>כניסה למסך הוספת מעסיק</h3>
+              <p class="summary">נכנסים לתפריט המעסיקים ובוחרים בפקודת הוספה.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="pic01.png" alt="תפריט מעסיקים וכפתור הוספת מעסיק" loading="lazy" decoding="async" />
+              <figcaption class="caption">בוחרים בתפריט הראשי <strong>מעסיקים</strong>, ולאחר מכן לוחצים על <strong>הוספת מעסיק</strong> לפתיחת הטופס.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="step" id="emp-step2">
+          <header class="step-head">
+            <span class="step-badge">2</span>
+            <div>
+              <h3>מילוי פרטי המעסיק</h3>
+              <p class="summary">מזינים את כל נתוני המעסיק בצורה מלאה ומדויקת.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="pic02.png" alt="מסך פרטי מעסיק למילוי" loading="lazy" decoding="async" />
+              <figcaption class="caption">ממלאים את כלל השדות הנדרשים במסך, כולל פרטי זיהוי, קשר והגדרות נדרשות.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="step" id="emp-step3">
+          <header class="step-head">
+            <span class="step-badge">3</span>
+            <div>
+              <h3>שמירה ואימות פרטי מעסיק</h3>
+              <p class="summary">בודקים את הנתונים ולוחצים על כפתור השמירה הירוק.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="pic03.png" alt="מסך פרטי מעסיק לפני שמירה" loading="lazy" decoding="async" />
+              <figcaption class="caption">לאחר בדיקה שהפרטים תקינים, לוחצים על <strong>שמור מעסיק</strong> (כפתור ירוק בצד ימין למטה).</figcaption>
+            </figure>
+            <p class="callout success"><strong>חשוב:</strong> שמירת המעסיק מעבירה אוטומטית למסך הקמת פוליסה עבור אותו מעסיק.</p>
+          </div>
+        </article>
+
+        <article class="step" id="emp-step4">
+          <header class="step-head">
+            <span class="step-badge">4</span>
+            <div>
+              <h3>מסך הקמת פוליסה למעסיק</h3>
+              <p class="summary">המערכת פותחת את מסך ההקמה של הפוליסה החדשה.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="pic04.png" alt="מסך הקמת פוליסה למעסיק" loading="lazy" decoding="async" />
+              <figcaption class="caption">ממלאים את שדות הפוליסה בהתאם להגדרות התיק והצרכים התפעוליים.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="step" id="emp-step5">
+          <header class="step-head">
+            <span class="step-badge">5</span>
+            <div>
+              <h3>הוספת הפוליסה</h3>
+              <p class="summary">לאחר מילוי מלא, מאשרים באמצעות הכפתור הכחול.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="pic05.png" alt="מסך פרטי פוליסה לאחר מילוי" loading="lazy" decoding="async" />
+              <figcaption class="caption">לוחצים על <strong>הוסף פוליסה</strong> (כפתור כחול למטה מימין) כדי לשייך את הפוליסה למעסיק.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="step" id="emp-step6">
+          <header class="step-head">
+            <span class="step-badge">6</span>
+            <div>
+              <h3>אימות בכרטיסיית ניהול פוליסות</h3>
+              <p class="summary">בודקים שהפוליסה מופיעה ומסומנת כפעילה.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="pic06.png" alt="כרטיסיית ניהול פוליסות עם סטטוס פעילה" loading="lazy" decoding="async" />
+              <figcaption class="caption">בכרטיסייה <strong>ניהול פוליסות</strong> ניתן לראות את הפוליסה שנוצרה בסטטוס <strong>פעילה</strong>.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="step" id="emp-step7">
+          <header class="step-head">
+            <span class="step-badge">7</span>
+            <div>
+              <h3>אימות ברשימת המעסיקים</h3>
+              <p class="summary">חוזרים לתפריט מעסיקים ומוודאים שהמעסיק החדש נוסף.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="pic07.png" alt="רשימת מעסיקים עם המעסיק שנוסף" loading="lazy" decoding="async" />
+              <figcaption class="caption">בפתיחת רשימת המעסיקים יש לוודא שהמעסיק החדש מופיע ברשימה.</figcaption>
+            </figure>
+          </div>
+        </article>
+      </main>
+    </section>
+
+    <section class="tab-panel" id="panel-worker" role="tabpanel" aria-labelledby="tab-worker">
+       <main class="guide-main">
+        <article class="step" id="wrk-step1">
+          <header class="step-head">
+            <span class="step-badge">1</span>
+            <div>
+              <h3>כניסה לרשימת מעסיקים ופתיחת כרטיס מעסיק</h3>
+              <p class="summary">מאתרים את המעסיק הרלוונטי ולוחצים על עריכה.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="pic111.png" alt="רשימת מעסיקים וכניסה לעריכת מעסיק" loading="lazy" decoding="async" />
+              <figcaption class="caption">נכנסים לרשימת המעסיקים, פותחים את כרטיס המעסיק הרצוי ולוחצים על <strong>עריכה</strong>.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="step" id="wrk-step2">
+          <header class="step-head">
+            <span class="step-badge">2</span>
+            <div>
+              <h3>הוספת עובד חדש למעסיק</h3>
+              <p class="summary">במסך המעסיק בוחרים בפעולת הוספת עובד חדש.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="pic112.png" alt="מסך מעסיק עם כפתור הוסף עובד חדש למעסיק זה" loading="lazy" decoding="async" />
+              <figcaption class="caption">במסך המעסיק לוחצים למטה על <strong>הוסף עובד חדש למעסיק זה</strong>.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="step" id="wrk-step3">
+          <header class="step-head">
+            <span class="step-badge">3</span>
+            <div>
+              <h3>מילוי פרטי העובד ושמירה</h3>
+              <p class="summary">מזינים את נתוני העובד ושומרים את הרשומה.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="pic113.png" alt="טופס פרטי עובד חדש" loading="lazy" decoding="async" />
+              <figcaption class="caption">במסך החדש ממלאים את פרטי העובד ולוחצים <strong>שמור</strong>.</figcaption>
+            </figure>
+            <figure class="figure-wrap" style="margin-top:0.85rem;">
+              <img src="pic114.png" alt="מסך עובד לאחר מילוי פרטים" loading="lazy" decoding="async" />
+              <figcaption class="caption">לאחר השמירה מוצג מסך העובד עם נתונים מלאים ומעודכנים.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="step" id="wrk-step4">
+          <header class="step-head">
+            <span class="step-badge">4</span>
+            <div>
+              <h3>מעבר לכרטיסיית הצהרת בריאות</h3>
+              <p class="summary">נכנסים לכרטיסייה הייעודית ומתחילים תהליך חתימה דיגיטלית.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="pic115.png" alt="כרטיסיית הצהרת בריאות עם כפתור צור קישור לחתימה" loading="lazy" decoding="async" />
+              <figcaption class="caption">בכרטיסיית <strong>הצהרת בריאות</strong> לוחצים על <strong>צור קישור לחתימה</strong>.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="step" id="wrk-step5">
+          <header class="step-head">
+            <span class="step-badge">5</span>
+            <div>
+              <h3>בחירת טופס ושפה לתהליך הדיגיטלי</h3>
+              <p class="summary">המערכת ממליצה אוטומטית, אך ניתן להחליף ידנית לפי צורך.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="pic116.png" alt="מסך המלצת טופס ושפה לפי הגדרות מעסיק" loading="lazy" decoding="async" />
+              <figcaption class="caption">בתיבת הגלילה מתקבלת המלצה על טופס ושפה לפי הגדרות המעסיק.</figcaption>
+            </figure>
+            <figure class="figure-wrap" style="margin-top:0.85rem;">
+              <img src="pic117.png" alt="תיבת גלילה פתוחה להחלפת טופס ושפה" loading="lazy" decoding="async" />
+              <figcaption class="caption">ניתן לפתוח את הרשימה ולהחליף טופס ושפה לפני ההפצה לעובד.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="step" id="wrk-step6">
+          <header class="step-head">
+            <span class="step-badge">6</span>
+            <div>
+              <h3>שליחת הצהרת הבריאות לעובד</h3>
+              <p class="summary">המערכת תומכת בשליחה במייל, בוואטסאפ או בשורת אקסל עם קישור.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="pic118.png" alt="אפשרויות שליחת הצהרת בריאות דיגיטלית" loading="lazy" decoding="async" />
+              <figcaption class="caption">בוחרים בערוץ שליחה מתאים: דוא"ל, וואטסאפ או ייצוא שורת אקסל הכוללת קישור ישיר לטופס.</figcaption>
+            </figure>
+            <figure class="figure-wrap" style="margin-top:0.85rem;">
+              <img src="pic119.png" alt="הצהרת בריאות דיגיטלית כפי שהעובד מקבל" loading="lazy" decoding="async" />
+              <figcaption class="caption">לאחר השליחה העובד מקבל את ההצהרה הדיגיטלית ויכול לחתום ולשלוח.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="step" id="wrk-step7">
+          <header class="step-head">
+            <span class="step-badge">7</span>
+            <div>
+              <h3>אימות סטטוס דיגיטלי לאחר חתימה</h3>
+              <p class="summary">לאחר שליחת העובד מתקבל חיווי קליטה במערכת.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="pic120.png" alt="סטטוס דיגיטלי שהתקבלה הצהרת בריאות דיגיטלית" loading="lazy" decoding="async" />
+              <figcaption class="caption">במערכת מוצג סטטוס דיגיטלי המאשר ש<strong>התקבלה הצהרת בריאות דיגיטלית</strong>.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="step" id="wrk-step8">
+          <header class="step-head">
+            <span class="step-badge">8</span>
+            <div>
+              <h3>אימות מסמך בארכיון המסמכים</h3>
+              <p class="summary">בודקים שהמסמך נשמר לזמינות צפייה והורדה.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="pic121.png" alt="ארכיון מסמכים עם מסמך הצהרת בריאות" loading="lazy" decoding="async" />
+              <figcaption class="caption">בארכיון המסמכים מופיע מסמך הצהרת הבריאות וניתן לבצע צפייה או הורדה לפי צורך.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="step" id="wrk-step9">
+          <header class="step-head">
+            <span class="step-badge">9</span>
+            <div>
+              <h3>עדכון סטטוס תפעולי והפקת מסמכים דיגיטליים</h3>
+              <p class="summary">מגדירים סטטוס הצהרה תקינה ומפיקים אישור ביטוח וכרטיס קופת חולים.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="pic122.png" alt="סטטוס תפעולי הצהרת בריאות תקינה" loading="lazy" decoding="async" />
+              <figcaption class="caption">בכרטיסיית הצהרת הבריאות, תחת סטטוס תפעולי, בוחרים <strong>הצהרת בריאות תקינה</strong> (כאשר אכן תקינה).</figcaption>
+            </figure>
+            <p class="callout info"><strong>המשך תהליך:</strong> לאחר סטטוס תקין ניתן לעבור להפקת מסמכים דיגיטליים לעובד בהתאם להרשאות והגדרות המערכת.</p>
+            <div class="two-up" style="margin-top:0.85rem;">
+              <figure class="figure-wrap">
+                <img src="pic125.png" alt="אישור ביטוח דיגיטלי לעובד" loading="lazy" decoding="async" />
+                <figcaption class="caption">הפקת <strong>אישור ביטוח דיגיטלי</strong> עבור העובד.</figcaption>
+              </figure>
+              <figure class="figure-wrap">
+                <img src="pic126.png" alt="כרטיס קופת חולים דיגיטלי לעובד" loading="lazy" decoding="async" />
+                <figcaption class="caption">הפקת <strong>כרטיס קופת חולים דיגיטלי</strong> לעובד.</figcaption>
+              </figure>
+            </div>
+          </div>
+        </article>
+      </main>
+    </section>
+
+    <section class="tab-panel" id="panel-dashboard" role="tabpanel" aria-labelledby="tab-dashboard">
+      <div class="toc-card">
+        <h2>לוח הבקרה - מבט על ותפעול ישיר</h2>
+        <p class="summary" style="margin:0; color: var(--text-muted); font-size:0.97rem;">
+          לוח הבקרה הוא מסך הכניסה למערכת והוא מציג תמונת מצב מצרפית, כמותית ועדכנית. מהלוח ניתן לגשת ישירות לפעולות התפעוליות המרכזיות, ללא מעבר בין מסכים מרובי שלבים.
+        </p>
+      </div>
+
+      <main class="guide-main" style="margin-top:1.1rem;">
+        <article class="step" id="dash-overview">
+          <header class="step-head">
+            <span class="step-badge">1</span>
+            <div>
+              <h3>תמונת מצב מרוכזת במסך הכניסה</h3>
+              <p class="summary">לוח הבקרה מתקדם המוצג מיד עם הכניסה למערכת, ובו כרטיסים מספריים מרכזיים.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="image-01.png" alt="מסך כניסה עם לוח בקרה מתקדם וקלפים מספריים" loading="lazy" decoding="async" />
+              <figcaption class="caption">
+                לוח הבקרה מרכז <strong>מדדים כמותיים</strong> וקריטיים (כגון חסרי פרטים, פוליסות לחידוש, הצהרות בריאות בטיפול ועוד) באופן שמאפשר להבין את מצב המערכת במבט אחד.
+              </figcaption>
+            </figure>
+            <p class="callout info">
+              <strong>ייעוד הלוח:</strong> לאפשר למשתמש לקבל החלטות תפעוליות מהירות על בסיס תמונת מצב עדכנית, מבלי לעבור בין מסכים נפרדים או דוחות מורכבים.
+            </p>
+          </div>
+        </article>
+
+        <article class="step" id="dash-cards">
+          <header class="step-head">
+            <span class="step-badge">2</span>
+            <div>
+              <h3>כרטיסים אינטראקטיביים ופתיחת דוחות מתחת ללוח</h3>
+              <p class="summary">כל כרטיס משמש כשער לדוח תפעולי מלא, הנפתח מתחת ללוח הבקרה.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <p class="summary" style="margin-bottom:0.75rem;">
+              לחיצה על כרטיס בלוח הבקרה פותחת <strong>דוח מפורט</strong> מתחת ללוח עצמו, הכולל את כל הרשומות המרכיבות את המדד שבכרטיס.
+            </p>
+            <p class="caption" style="border-radius:10px; border:1px dashed var(--border); margin-top:0.75rem;">
+              מתוך דוח זה ניתן:
+              <br />• לסנן ולמקד נתונים (למשל לפי מעסיק, עובד, סטטוס).
+              <br />• לערוך ולתקן נתונים חסרים.
+              <br />• לטפל במשימות שוטפות כגון השלמת פרטים, חידוש פוליסות, או סגירת משימות פתוחות.
+            </p>
+          </div>
+        </article>
+
+        <article class="step" id="dash-operations">
+          <header class="step-head">
+            <span class="step-badge">3</span>
+            <div>
+              <h3>תפעול ישיר לנושאים קריטיים</h3>
+              <p class="summary">ניהול יום-יומי ישירות מלוח הבקרה, ללא ניווט עודף.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <p class="summary" style="margin-bottom:0.75rem;">
+              לוח הבקרה נבנה כך שהמשתמש יוכל <strong>לעבור מיד מתמונה כמותית לפעולה תפעולית</strong>:
+            </p>
+            <ul style="margin:0 0 0.4rem 0; padding-inline-start:1.1rem; color:var(--text-muted); font-size:0.96rem;">
+              <li>טיפול ברשימות <strong>חסרי פרטים</strong> והשלמת נתונים.</li>
+              <li>ניהול משימות <strong>חידוש פוליסות</strong> לפני תום מועד תוקף.</li>
+              <li>טיפול מרוכז ב<strong>הצהרות בריאות</strong> – פתיחה, מעקב ואישור (מפורט במדריך הוספת עובד חדש).</li>
+              <li>כל נושא נוסף שהמערכת מציגה ככרטיס ייעודי בלוח הבקרה.</li>
+            </ul>
+            <p class="callout success">
+              <strong>תועלת תפעולית:</strong> ריכוז הנושאים הקריטיים בלוח אחד מקצר משמעותית את זמן הטיפול, מפחית טעויות, ומקל על בקרה שוטפת ברמת הארגון.
+            </p>
+          </div>
+        </article>
+      </main>
+    </section>
+
+    <section class="tab-panel" id="panel-automation" role="tabpanel" aria-labelledby="tab-automation">
+      <div class="toc-card">
+        <h2>אוטומציות - טעינה ועדכון במסה</h2>
+        <p class="summary" style="margin:0; color: var(--text-muted); font-size:0.97rem;">
+          מודול האוטומציות מאפשר לנהל תהליכי הזנה ועדכון רחבים בצורה מהירה ומבוקרת: טעינת עובדים במסה, טעינת מעסיקים ופוליסות, עדכון נתוני עובדים במסה והפקת קבצי אקסל עם קישורים אוטומטיים להצהרות בריאות דיגיטליות.
+        </p>
+      </div>
+
+      <main class="guide-main" style="margin-top:1.1rem;">
+        <article class="step" id="aut-step1">
+          <header class="step-head">
+            <span class="step-badge">1</span>
+            <div>
+              <h3>כניסה למסך אוטומציות</h3>
+              <p class="summary">בתפריט הראשי בוחרים את מודול האוטומציות.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="imgAut01.png" alt="תפריט ראשי עם בחירה באוטומציות" loading="lazy" decoding="async" />
+              <figcaption class="caption">
+                בוחרים בתפריט הראשי <strong>אוטומציות</strong>. במסך זה ניתן להפעיל תהליכי טעינה ועדכון במסה וכן הפקת קבצים תפעוליים.
+              </figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="step" id="aut-step2">
+          <header class="step-head">
+            <span class="step-badge">2</span>
+            <div>
+              <h3>בחירת תהליך טעינת עובדים ופוליסות</h3>
+              <p class="summary">נבחר את אפשרות הטעינה ונראה שהתהליך בנוי משני שלבים ברורים.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="imgAut02.png" alt="מסך טעינת עובדים ופוליסות עם שני שלבים" loading="lazy" decoding="async" />
+              <figcaption class="caption">
+                במסך <strong>טעינת עובדים ופוליסות</strong> מוצגים שני שלבים: הורדת תבנית קובץ (שלב 1) והעלאת קובץ מלא (שלב 2).
+              </figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="step" id="aut-step3">
+          <header class="step-head">
+            <span class="step-badge">3</span>
+            <div>
+              <h3>שלב 1 - הורדת קובץ תבנית</h3>
+              <p class="summary">אם עדיין אין מבנה קובץ, מורידים תבנית ישירות מהמערכת.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="imgAut03.png" alt="חלון שמירה לאחר לחיצה על הורד קובץ תבנית" loading="lazy" decoding="async" />
+              <figcaption class="caption">
+                לוחצים על <strong>הורד קובץ תבנית</strong>, בוחרים מיקום שמירה במחשב ומאשרים. ייפתח חלון ספריות לשמירת הקובץ.
+              </figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="step" id="aut-step4">
+          <header class="step-head">
+            <span class="step-badge">4</span>
+            <div>
+              <h3>מילוי התבנית - שדות חובה ושדות רשות</h3>
+              <p class="summary">פותחים את גיליון העבודה ומשלימים נתונים לפי ההנחיות.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="imgAut04.png" alt="קובץ אקסל תבנית עם כותרות ושדות" loading="lazy" decoding="async" />
+              <figcaption class="caption">
+                בקובץ התבנית יש גיליון עם כותרות. שדות החובה הם: <strong>שם פרטי*</strong>, <strong>שם משפחה*</strong>, <strong>מספר דרכון*</strong>, <strong>מעסיק (ח.פ)*</strong>. מומלץ להזין גם מספר פוליסה/קולקטיב אם קיים, ושאר השדות הם שדות רשות.
+              </figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="step" id="aut-step5">
+          <header class="step-head">
+            <span class="step-badge">5</span>
+            <div>
+              <h3>שלב 2 - העלאת הקובץ למערכת</h3>
+              <p class="summary">מעלים את הקובץ המלא ומתחילים את תהליך הטעינה.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="imgAut05.png" alt="העלאת קובץ טעינת עובדים ופוליסות" loading="lazy" decoding="async" />
+              <figcaption class="caption">
+                לוחצים על <strong>העלאת הקובץ</strong>, בוחרים את הקובץ שמולא ונשמר, ומאשרים. המערכת תבצע את תהליך טעינת העובדים והפוליסות.
+              </figcaption>
+            </figure>
+            <p class="callout info">
+              <strong>הערה חשובה:</strong> טעינת מעסיקים ועדכון עובדים/פוליסות הם תהליכים דומים, אך עם מבנה קובץ אחר. יש לפעול לפי ההוראות המופיעות בכל מסך תהליך.
+            </p>
+            <figure class="figure-wrap" style="margin-top:0.85rem;">
+              <img src="imgAut05-5.png" alt="הנחיות במסך עדכון עובדים במסה" loading="lazy" decoding="async" />
+              <figcaption class="caption">
+                דוגמה למסך <strong>עדכון עובדים</strong>: יש להקפיד על הוראות השדות והפורמט לפני העלאה.
+              </figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="step" id="aut-step6">
+          <header class="step-head">
+            <span class="step-badge">6</span>
+            <div>
+              <h3>יצירת קובץ קישורים להצהרת בריאות דיגיטלית</h3>
+              <p class="summary">הפקת אקסל עובדים עם קישורים אוטומטיים להצהרות בריאות.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="imgAut06.png" alt="מסך יצירת קובץ קישורים להצהרות בריאות דיגיטליות" loading="lazy" decoding="async" />
+              <figcaption class="caption">
+                נכנסים לטאב הייעודי, מגדירים פרטים וסינונים לפי הצורך, ולוחצים על <strong>הצג עובדים</strong>. לאחר הצגת הרשימה מפיקים קובץ אקסל הכולל קישורים אוטומטיים להצהרות הבריאות הדיגיטליות.
+              </figcaption>
+            </figure>
+            <figure class="figure-wrap" style="margin-top:0.85rem;">
+              <img src="imgAut07.png" alt="מסך לאחר לחיצה על הפקה בתהליך יצירת קישורים" loading="lazy" decoding="async" />
+              <figcaption class="caption">
+                בשלב שלאחר לחיצה על <strong>הפקה</strong>, מתקבל מסך תוצאה המאשר את יצירת הקישורים ומאפשר המשך עבודה עם הקובץ שהופק.
+              </figcaption>
+            </figure>
+            <p class="callout success">
+              <strong>תוצאה:</strong> מתקבל תהליך עבודה מהיר ואחיד שמאפשר הפצה מבוקרת של הצהרות בריאות דיגיטליות לקבוצות עובדים גדולות.
+            </p>
+          </div>
+        </article>
+      </main>
+    </section>
+
+    <section class="tab-panel" id="panel-requests" role="tabpanel" aria-labelledby="tab-requests">
+      <div class="toc-card">
+        <h2>פניות מעסיקים - בקשות שירות ותפעול סטטוסים</h2>
+        <p class="summary" style="margin:0; color: var(--text-muted); font-size:0.97rem;">
+          מודול פניות המעסיקים מרכז את כלל בקשות השירות, כולל יכולת סינון, צפייה, טיפול ועדכון סטטוס. ניתן גם לייצא את נתוני המסך לקובץ אקסל לצורך בקרה ותיעוד.
+        </p>
+      </div>
+
+      <main class="guide-main" style="margin-top:1.1rem;">
+        <article class="step" id="req-step1">
+          <header class="step-head">
+            <span class="step-badge">1</span>
+            <div>
+              <h3>כניסה למסך בקשות שירות</h3>
+              <p class="summary">מהתפריט הראשי בוחרים בקשות שירות ונכנסים למסך פניות מעסיקים.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="portal01.png" alt="מסך בקשות שירות בתפריט הראשי" loading="lazy" decoding="async" />
+              <figcaption class="caption">
+                לאחר הבחירה ב<strong>בקשות שירות</strong> נפתח מסך פניות המעסיקים. מהמסך ניתן גם לבצע <strong>ייצוא לאקסל</strong> לצורך המשך עבודה או בקרה.
+              </figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="step" id="req-step2">
+          <header class="step-head">
+            <span class="step-badge">2</span>
+            <div>
+              <h3>מבנה המסך - שלושה אזורי עבודה</h3>
+              <p class="summary">המסך מחולק ללוח בקרה, אזור סינונים ואזור תוצאות.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap section-frame">
+              <img src="portal02.png" alt="חלק עליון במסך עם לוח בקרה לסטטוסי בקשות" loading="lazy" decoding="async" />
+              <figcaption class="caption">
+                <strong>החלק העליון</strong> מציג לוח בקרה תפעולי של בקשות השירות לפי סטטוסים ומאפשר תמונת מצב מהירה.
+              </figcaption>
+            </figure>
+            <figure class="figure-wrap section-frame" style="margin-top:0.85rem;">
+              <img src="portal03.png" alt="אזור סינון בקשות שירות לפי פרמטרים" loading="lazy" decoding="async" />
+              <figcaption class="caption">
+                <strong>החלק האמצעי</strong> כולל מנגנון סינון לפי פרמטרים שונים (כגון סוג בקשה, סטטוס, מזהים ועוד).
+              </figcaption>
+            </figure>
+            <figure class="figure-wrap section-frame" style="margin-top:0.85rem;">
+              <img src="portal04.png" alt="תוצאות סינון בקשות שירות בחלק התחתון" loading="lazy" decoding="async" />
+              <figcaption class="caption">
+                <strong>החלק התחתון</strong> מציג את תוצאות הסינון בצורה טבלאית ומאפשר מעבר מהיר לטיפול בכל בקשה.
+              </figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="step" id="req-step3">
+          <header class="step-head">
+            <span class="step-badge">3</span>
+            <div>
+              <h3>צפייה בבקשה וטיפול בסטטוס</h3>
+              <p class="summary">נכנסים לפרטי הפנייה דרך אייקון העין ומעדכנים תוצאת טיפול.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="portal05.png" alt="אייקון עין לצפייה בבקשת שירות" loading="lazy" decoding="async" />
+              <figcaption class="caption">
+                לצפייה בבקשה לוחצים על אייקון בצורת <strong>עין</strong>. במסך הפרטים ניתן לטפל בבקשת המעסיק ולעדכן סטטוס טיפול, למשל <strong>אושרה</strong> או <strong>נדחתה</strong>.
+              </figcaption>
+            </figure>
+            <p class="callout info">
+              <strong>המלצה תפעולית:</strong> בעת עדכון סטטוס, מומלץ לוודא שהערות הטיפול מלאות ומדויקות כדי לשמור על רצף תיעוד ושקיפות מול המעסיק.
+            </p>
+          </div>
+        </article>
+
+        <article class="step" id="req-step4">
+          <header class="step-head">
+            <span class="step-badge">4</span>
+            <div>
+              <h3>סוגי בקשות מעסיק אפשריות</h3>
+              <p class="summary">המערכת תומכת במספר סוגי בקשה, בהתאם לתהליכי השירות בארגון.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="portal06.png" alt="רשימת סוגי בקשה אפשריים למעסיק" loading="lazy" decoding="async" />
+              <figcaption class="caption">
+                במסך סוגי הבקשה ניתן לראות את כלל האפשרויות שהמעסיק יכול לפתוח. סיווג נכון של סוג הבקשה מסייע לטיפול מהיר ולניתוח עומסים לפי קטגוריות שירות.
+              </figcaption>
+            </figure>
+          </div>
+        </article>
+      </main>
+    </section>
+
+    <section class="tab-panel" id="panel-reports" role="tabpanel" aria-labelledby="tab-reports">
+      <div class="toc-card">
+        <h2>דוחות - הפקה, סינון וייצוא</h2>
+        <p class="summary" style="margin:0; color: var(--text-muted); font-size:0.97rem;">
+          מסך הדוחות מאפשר לצפות בדוחות שהופקו בעבר, לייצר דוח חדש לפי סינונים מתקדמים, לבצע עריכה או מחיקה של דוח קיים, ולייצא תוצאות לקובץ אקסל.
+        </p>
+      </div>
+
+      <main class="guide-main" style="margin-top:1.1rem;">
+        <article class="step" id="rep-step1">
+          <header class="step-head">
+            <span class="step-badge">1</span>
+            <div>
+              <h3>כניסה למסך דוחות</h3>
+              <p class="summary">מהתפריט הראשי נכנסים לאזור הדוחות.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="doch01.png" alt="מסך רשימת דוחות בתפריט הראשי" loading="lazy" decoding="async" />
+              <figcaption class="caption">
+                לאחר לחיצה על <strong>דוחות</strong> מתקבל מסך המרכז את רשימת הדוחות שהופקו בעבר, כולל אפשרות להפקת דוח חדש.
+              </figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="step" id="rep-step2">
+          <header class="step-head">
+            <span class="step-badge">2</span>
+            <div>
+              <h3>ניהול דוחות קיימים</h3>
+              <p class="summary">ניתן לערוך או למחוק כל דוח שכבר הופק.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="doch03-3.png" alt="רשימת דוחות עם פעולות עריכה ומחיקה" loading="lazy" decoding="async" />
+              <figcaption class="caption">
+                במסך הרשימה, לכל דוח זמינות פעולות <strong>עריכה</strong> ו<strong>מחיקה</strong> לניהול נוח של דוחות קיימים.
+              </figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="step" id="rep-step3">
+          <header class="step-head">
+            <span class="step-badge">3</span>
+            <div>
+              <h3>יצירת דוח חדש</h3>
+              <p class="summary">נלחץ על כפתור דוח חדש ונפתח מסך הגדרות הדוח.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="doch02.png" alt="מסך יצירת דוח חדש" loading="lazy" decoding="async" />
+              <figcaption class="caption">
+                לוחצים על <strong>דוח חדש</strong> ונכנסים למסך יצירת הדוח להגדרת מבנה ותוכן הדוח.
+              </figcaption>
+            </figure>
+            <figure class="figure-wrap" style="margin-top:0.85rem;">
+              <img src="doch03.png" alt="אזור סינונים ונושאים ראשיים להגדרת דוח" loading="lazy" decoding="async" />
+              <figcaption class="caption">
+                באזור הסינונים מוצגים נושאים ראשיים, ומתחת לכל נושא ניתן לבחור את הפרמטרים שיופיעו בדוח בהתאם לצורך.
+              </figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="step" id="rep-step4">
+          <header class="step-head">
+            <span class="step-badge">4</span>
+            <div>
+              <h3>ייצוא הדוח לקובץ אקסל</h3>
+              <p class="summary">לאחר יצירה ניתן להפיק קובץ אקסל של הדוח.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="doch03-4.png" alt="ייצוא דוח לקובץ אקסל" loading="lazy" decoding="async" />
+              <figcaption class="caption">
+                לאחר שמירת הדוח ניתן לבצע <strong>ייצוא לאקסל</strong> ולהוריד את תוצאות הדוח לעבודה חיצונית או להפצה.
+              </figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="step" id="rep-step5">
+          <header class="step-head">
+            <span class="step-badge">5</span>
+            <div>
+              <h3>אימות הופעת הדוח ברשימה</h3>
+              <p class="summary">בחזרה למסך הדוחות נראה שהדוח החדש נוסף.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="doch04.png" alt="רשימת דוחות לאחר הוספת דוח חדש" loading="lazy" decoding="async" />
+              <figcaption class="caption">
+                לאחר החזרה למסך הדוחות ניתן לראות שהדוח החדש נוסף לרשימת הדוחות וזמין לשימוש עתידי.
+              </figcaption>
+            </figure>
+            <p class="callout success">
+              <strong>סיכום:</strong> תהליך העבודה בדוחות כולל יצירה, בחירת פרמטרים, ייצוא וניהול שוטף של דוחות קיימים מאותו מסך מרכזי.
+            </p>
+          </div>
+        </article>
+      </main>
+    </section>
+  </div>
+
+  <footer>
+    מדריך תפעולי מקצועי - הוספת מעסיק חדש, הוספת עובד חדש, לוח בקרה, אוטומציות, פניות מעסיקים וניהול דוחות.
+  </footer>
+
+  <script>
+    (function () {
+      var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var tabButtons = Array.prototype.slice.call(document.querySelectorAll(".tab-btn"));
+      var panels = Array.prototype.slice.call(document.querySelectorAll(".tab-panel"));
+
+      function setActiveTab(panelId) {
+        tabButtons.forEach(function (button) {
+          var selected = button.getAttribute("data-panel") === panelId;
+          button.setAttribute("aria-selected", String(selected));
+        });
+
+        panels.forEach(function (panel) {
+          var isActive = panel.id === panelId;
+          panel.classList.toggle("active", isActive);
+        });
+
+        if (!prefersReducedMotion) {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } else {
+          window.scrollTo(0, 0);
+        }
+      }
+
+      tabButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          setActiveTab(button.getAttribute("data-panel"));
+        });
+      });
+
+      var steps = Array.prototype.slice.call(document.querySelectorAll(".step"));
+      if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+        steps.forEach(function (el) { el.classList.add("visible"); });
+        return;
+      }
+
+      var observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        {
+          root: null,
+          threshold: 0.08,
+          rootMargin: "0px 0px -10% 0px"
+        }
+      );
+
+      steps.forEach(function (step) { observer.observe(step); });
+    })();
+  </script>
+</body>
+</html>
