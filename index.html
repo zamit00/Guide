@@ -1219,6 +1219,7 @@
       var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       var tabButtons = Array.prototype.slice.call(document.querySelectorAll(".tab-btn"));
       var panels = Array.prototype.slice.call(document.querySelectorAll(".tab-panel"));
+      var tabsShell = document.querySelector(".tabs-shell");
 
       function setActiveTab(panelId) {
         tabButtons.forEach(function (button) {
@@ -1230,6 +1231,16 @@
           var isActive = panel.id === panelId;
           panel.classList.toggle("active", isActive);
         });
+
+        if (window.matchMedia("(max-width: 700px)").matches && tabsShell) {
+          var targetTop = tabsShell.getBoundingClientRect().top + window.pageYOffset - 6;
+          if (!prefersReducedMotion) {
+            window.scrollTo({ top: targetTop, behavior: "smooth" });
+          } else {
+            window.scrollTo(0, targetTop);
+          }
+          return;
+        }
 
         if (!prefersReducedMotion) {
           window.scrollTo({ top: 0, behavior: "smooth" });
