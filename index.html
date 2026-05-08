@@ -432,13 +432,24 @@
         padding-top: 5.4rem;
       }
       .tabs-nav {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.38rem;
+        padding: 0.42rem;
       }
       .hero-logo {
         width: 70px;
         left: 50%;
         top: 0.8rem;
         transform: translateX(-50%);
+      }
+      .tab-btn {
+        padding: 0.62rem 0.5rem;
+        font-size: 0.93rem;
+        border: 1px solid rgba(39, 71, 166, 0.28);
+        background: rgba(255, 255, 255, 0.96);
+      }
+      .tab-btn[aria-selected="true"] {
+        border-color: rgba(13, 110, 253, 0.75);
       }
       .step-head {
         padding: 0.86rem 0.86rem 0.72rem;
@@ -472,8 +483,7 @@
       <img src="logo.jpg" alt="לוגו נויה" loading="eager" decoding="async" />
     </a>
     <h1> מדריך למערכת נויה - ניהול ביטוחי עובדים זרים</h1>
-    <p>מדריך מקיף לניהול מחזור העבודה המלא: הוספת מעסיק חדש, הוספת עובד חדש עם הצהרת בריאות דיגיטלית, לוח בקרה, אוטומציות, פניות שירות מעסיקים וניהול דוחות.</p>
-  </header>
+    <p>מדריך מקיף לניהול מחזור העבודה המלא: הוספת מעסיק חדש, הוספת עובד חדש עם הצהרת בריאות דיגיטלית, לוח בקרה, אוטומציות, פניות שירות מעסיקים וניהול דוחות.</p>  </header>
 
   <div class="tabs-shell" role="tablist" aria-label="בחירת מדריך">
     <nav class="tabs-nav">
