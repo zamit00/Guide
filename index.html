@@ -137,7 +137,7 @@
 
     .tabs-nav {
       display: grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
+      grid-template-columns: repeat(7, minmax(0, 1fr));
       gap: 0.55rem;
       padding: 0.6rem;
       border-radius: 14px;
@@ -404,6 +404,12 @@
       to { transform: translateY(12px) scale(1.06); opacity: 1; }
     }
 
+    @media (max-width: 1200px) and (min-width: 901px) {
+      .tabs-nav {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
     @media (max-width: 900px) {
       :root {
         --container: min(100%, calc(100% - 1rem));
@@ -483,7 +489,8 @@
       <img src="logo.jpg" alt="לוגו נויה" loading="eager" decoding="async" />
     </a>
     <h1> מדריך למערכת נויה - ניהול ביטוחי עובדים זרים</h1>
-    <p>מדריך מקיף לניהול מחזור העבודה המלא: הוספת מעסיק חדש, הוספת עובד חדש עם הצהרת בריאות דיגיטלית, לוח בקרה, אוטומציות, פניות שירות מעסיקים וניהול דוחות.</p>  </header>
+    <p>מדריך מקיף לניהול מחזור העבודה המלא: הוספת מעסיק חדש, הוספת עובד חדש עם הצהרת בריאות דיגיטלית, לוח בקרה, אוטומציות, פניות שירות מעסיקים, ניהול דוחות וניהול משימות.</p>
+  </header>
 
   <div class="tabs-shell" role="tablist" aria-label="בחירת מדריך">
     <nav class="tabs-nav">
@@ -493,6 +500,7 @@
       <button class="tab-btn" role="tab" id="tab-automation" aria-controls="panel-automation" aria-selected="false" data-panel="panel-automation">אוטומציות</button>
       <button class="tab-btn" role="tab" id="tab-requests" aria-controls="panel-requests" aria-selected="false" data-panel="panel-requests">פניות מעסיקים</button>
       <button class="tab-btn" role="tab" id="tab-reports" aria-controls="panel-reports" aria-selected="false" data-panel="panel-reports">דוחות</button>
+      <button class="tab-btn" role="tab" id="tab-tasks" aria-controls="panel-tasks" aria-selected="false" data-panel="panel-tasks">משימות</button>
     </nav>
   </div>
 
@@ -1208,10 +1216,186 @@
         </article>
       </main>
     </section>
+
+    <section class="tab-panel" id="panel-tasks" role="tabpanel" aria-labelledby="tab-tasks">
+      <div class="toc-card">
+        <h2>משימות - לוח משימות וטיפול</h2>
+        <p class="summary" style="margin:0; color: var(--text-muted); font-size:0.97rem;">
+          בתפריט הראשי נכנסים ל<strong>משימות</strong>. במסך זה מרוכזות כל המשימות הפתוחות לטיפול שהוקמו על ידי הסוכן, עם אפשרות לסינון, סימון השלמה, עריכה ומחיקה. ניתן גם לפתוח משימה חדשה מתוך כרטיס עובד.
+        </p>
+      </div>
+
+      <main class="guide-main" style="margin-top:1.1rem;">
+        <article class="step" id="tsk-overview">
+          <header class="step-head">
+            <span class="step-badge">1</span>
+            <div>
+              <h3>לוח המשימות - משימות פתוחות</h3>
+              <p class="summary">מסך המשימות מציג את כל המשימות הפתוחות שהוקמו על ידי הסוכן.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="mesi06.png" alt="לוח משימות עם משימות פתוחות לטיפול" loading="lazy" decoding="async" />
+              <figcaption class="caption">
+                בלוח המשימות נראות המשימות הפתוחות לטיפול. דרך הלוח ניתן לסמן משימה כ<strong>הושלמה</strong>, ואז היא תעבור לאזור המשימות שטופלו.
+              </figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="step" id="tsk-from-employee">
+          <header class="step-head">
+            <span class="step-badge">2</span>
+            <div>
+              <h3>הוספת משימה דרך העובד</h3>
+              <p class="summary">נכנסים לעובדים, מאתרים עובד ופותחים משימה מכרטיס העובד.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="mesi01.png" alt="מסך עובד עם כפתור משימה" loading="lazy" decoding="async" />
+              <figcaption class="caption">
+                בתפריט הראשי בוחרים <strong>עובדים</strong>, מאתרים את העובד הרלוונטי, פותחים את הכרטיס ולוחצים על כפתור <strong>משימה</strong>.
+              </figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="step" id="tsk-form">
+          <header class="step-head">
+            <span class="step-badge">3</span>
+            <div>
+              <h3>מילוי פרטי המשימה</h3>
+              <p class="summary">לאחר לחיצה על משימה נפתח מסך להזנת פרטי המשימה.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="mesi02.png" alt="מסך הזנת פרטי משימה חדשה" loading="lazy" decoding="async" />
+              <figcaption class="caption">
+                יש למלא שם כללי למשימה ואת שאר השדות במסך בהתאם לנדרש. בסיום מילוי השדות יש ללחוץ על <strong>צור משימה</strong>.
+              </figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="step" id="tsk-type">
+          <header class="step-head">
+            <span class="step-badge">4</span>
+            <div>
+              <h3>סוג המשימה</h3>
+              <p class="summary">חשוב לבחור את סוג המשימה בצורה מדויקת.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="mesi03.png" alt="בחירת סוג משימה במסך יצירת משימה" loading="lazy" decoding="async" />
+              <figcaption class="caption">
+                יש להקפיד על מילוי <strong>סוג המשימה</strong> — הסיווג משפיע על ניתוב הטיפול והדיווח במערכת.
+              </figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="step" id="tsk-owner-status">
+          <header class="step-head">
+            <span class="step-badge">5</span>
+            <div>
+              <h3>סטטוס ומי מטפל במשימה</h3>
+              <p class="summary">הסטטוס מגדיר מי אחראי על הטיפול במשימה.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="mesi04.png" alt="הגדרת סטטוס משימה ואחראי טיפול" loading="lazy" decoding="async" />
+              <figcaption class="caption">
+                יש לבחור את <strong>הסטטוס</strong> המתאים — הוא קובע מי מטפל במשימה ומה מצבה התפעולי.
+              </figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="step" id="tsk-treatment">
+          <header class="step-head">
+            <span class="step-badge">6</span>
+            <div>
+              <h3>סטטוס טיפול (אופציונלי)</h3>
+              <p class="summary">ניתן להוסיף גם סטטוס טיפול לפי הצורך.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="mesi05.png" alt="הוספת סטטוס טיפול למשימה" loading="lazy" decoding="async" />
+              <figcaption class="caption">
+                לפי הצורך ניתן להזין או לבחור <strong>סטטוס טיפול</strong> נוסף כדי לתעד את התקדמות הטיפול במשימה.
+              </figcaption>
+            </figure>
+            <p class="callout success">
+              לאחר השלמת כל השדות לוחצים על <strong>צור משימה</strong> לשמירת המשימה במערכת.
+            </p>
+          </div>
+        </article>
+
+        <article class="step" id="tsk-verify-board">
+          <header class="step-head">
+            <span class="step-badge">7</span>
+            <div>
+              <h3>אימות בלוח המשימות</h3>
+              <p class="summary">חזרה לתפריט משימות מאשרת שהמשימה נוספה.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="mesi06.png" alt="לוח משימות לאחר הוספת משימה חדשה" loading="lazy" decoding="async" />
+              <figcaption class="caption">
+                לאחר יצירת המשימה, בחזרה ל<strong>לוח המשימות</strong> ניתן לראות שהמשימה החדשה נוספה לרשימת המשימות הפתוחות.
+              </figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="step" id="tsk-filter">
+          <header class="step-head">
+            <span class="step-badge">8</span>
+            <div>
+              <h3>סינון משימות לפי סטטוסים</h3>
+              <p class="summary">מעל הלוח קיים תפריט לסינון המשימות.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="mesi08.png" alt="תפריט סינון משימות לפי סטטוסים מעל לוח המשימות" loading="lazy" decoding="async" />
+              <figcaption class="caption">
+                <strong>מעל לוח המשימות</strong> מוצג תפריט שמאפשר לסנן את המשימות בהתאם ל<strong>סטטוסים</strong> שונים, כדי להתמקד במה שדורש טיפול מיידי.
+              </figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="step" id="tsk-edit-delete">
+          <header class="step-head">
+            <span class="step-badge">9</span>
+            <div>
+              <h3>עריכה ומחיקת משימה</h3>
+              <p class="summary">ניהול משימות קיימות דרך סמלי הפעולה בלוח.</p>
+            </div>
+          </header>
+          <div class="step-body">
+            <figure class="figure-wrap">
+              <img src="mesi07.png" alt="סמלי עיפרון לעריכה ואשפה למחיקת משימה" loading="lazy" decoding="async" />
+              <figcaption class="caption">
+                ניתן לבצע <strong>עריכה</strong> למשימה על ידי לחיצה על סמל העיפרון, או <strong>מחיקה</strong> של המשימה על ידי לחיצה על סמל האשפה.
+              </figcaption>
+            </figure>
+          </div>
+        </article>
+      </main>
+    </section>
   </div>
 
   <footer>
-    מדריך תפעולי מקצועי - הוספת מעסיק חדש, הוספת עובד חדש, לוח בקרה, אוטומציות, פניות מעסיקים וניהול דוחות.
+    מדריך תפעולי מקצועי - הוספת מעסיק חדש, הוספת עובד חדש, לוח בקרה, אוטומציות, פניות מעסיקים, ניהול דוחות וניהול משימות.
   </footer>
 
   <script>
